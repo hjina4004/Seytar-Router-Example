@@ -1,0 +1,33 @@
+{
+    "name": "lmfriends/test",
+    "description": "Cafe24 App test",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "require": {
+        "lmfriends/lmfds-cafe24": "~1.0.0",
+        "seytar/php-router": "dev-1.0.x-stable"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://gitlab.com/php-packages1/lmfds-cafe24"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/hjina4004/lmfds-foundation"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/hjina4004/lmfdslog"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
+}
