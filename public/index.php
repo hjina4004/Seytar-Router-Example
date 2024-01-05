@@ -9,7 +9,8 @@ require '../vendor/autoload.php';
 $request_body = file_get_contents('php://input');
 if ($request_body !== '') {
     $payload = json_decode($request_body);
-    foreach ($payload as $key => $value) $_REQUEST[$key] = $value;
+    if ($payload !== NULL)
+        foreach ($payload as $key => $value) $_REQUEST[$key] = $value;
 }
 
 function apiResource($uri, $controller)
