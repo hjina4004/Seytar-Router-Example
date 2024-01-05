@@ -6,6 +6,24 @@ use Seytar\Routing\Router;
 
 require '../vendor/autoload.php';
 
+$request_body = file_get_contents('php://input');
+if ($request_body !== '') {
+    $payload = json_decode($request_body);
+    foreach ($payload as $key => $value) $_REQUEST[$key] = $value;
+}
+
+function apiResource($uri, $controller)
+{
+    // index, store, show, update, destroy
+
+    Route::get($uri, ['uses' => "{$controller}@index"]);
+    Route::post($uri, ['uses' => "{$controller}@store"]);
+    Route::get($uri . '/{id}', ['uses' => "{$controller}@show"]);
+    Route::put($uri . '/{id}', ['uses' => "{$controller}@update"]);
+    Route::delete($uri . '/{id}', ['uses' => "{$controller}@destroy"]);
+}
+
+
 Router::bootstrap(function ($ex) {
     header('Content-Type: text/html; charset=utf-8');
     echo '404 - Page Not Found';
@@ -15,8 +33,4 @@ Route::get('/', function () {
     echo 'Hello world.';
 });
 
-Route::get('/orders', ['uses' => OrderController::class . '@index']);
-Route::post('/orders', ['uses' => OrderController::class . '@store']);
-Route::get('/orders/{id}', ['uses' => OrderController::class . '@show']);
-Route::put('/orders/{id}', ['uses' => OrderController::class . '@update']);
-Route::delete('/orders/{id}', ['uses' => OrderController::class . '@destory']);
+apiResource('/orders', OrderController::class);
